@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -5,10 +7,10 @@ export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <nav className="bg-white shadow-md">
+        <nav className="bg-gray-900 shadow-md">
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
                 {/* Place logo link here */}
-                <div className="text-2xl font-bond text-blue-500">
+                <div className="font-poppins text-2xl font-bond text-blue-500">
                     <Link href="/">Eventory</Link>
                 </div>
 
@@ -32,7 +34,7 @@ export default function Navbar() {
                 </ul>
 
                 {/* Auth Options */}
-                <div className="hiddne md:block">
+                <div className="hidden md:block">
                     <button className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
                         Sign In
                     </button>
@@ -62,7 +64,7 @@ export default function Navbar() {
 
                 {/* Mobile Nav Links */}
                 {isMobileMenuOpen && (
-                    <ul className="absolute top-14 left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4 md:hidden">
+                    <ul className="absolute top-14 left-0 w-full bg-gray-900 shadow-md flex flex-col items-center space-y-4 py-4 md:hidden">
                         <li>
                             <Link href="/" className="hover:text-blue-500" onClick={() => setIsMobileMenuOpen(false)}>
                                 Home
