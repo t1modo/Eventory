@@ -12,10 +12,6 @@ export default function Navbar() {
 
                 <div className="flex items-center space-x-2">
                     <Link href="/"><img src="/images/eventory_logo.png" alt="Logo" className="h-10" /></Link>
-                    
-                    <div className="font-poppins text-2xl font-bond text-blue-500">
-                        <Link href="/">Eventory</Link>
-                    </div>
                 </div>
 
                 {/* Desktop Nav Links */}
