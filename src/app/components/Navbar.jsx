@@ -7,8 +7,8 @@ export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <nav className="bg-gray-900 shadow-md">
-            <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <nav className="bg-gray-800 shadow-md">
+            <div className="w-full pl-3 pr-3 py-3 flex justify-between items-center">
 
                 <div className="flex items-center space-x-2">
                     <Link href="/"><img src="/images/eventory_logo.png" alt="Logo" className="h-10" /></Link>
@@ -17,17 +17,17 @@ export default function Navbar() {
                 {/* Desktop Nav Links */}
                 <ul className="hidden md:flex space-x-6">
                     <li>
-                        <Link href="/" className="hover:text-blue-500">
+                        <Link href="/" className="font-sans hover:text-blue-500">
                             Home
                         </Link>
                     </li>
                     <li>
-                        <Link href="/event-discovery" className="hover:text-blue-500">
+                        <Link href="/event-discovery" className="font-sans hover:text-blue-500">
                             Events
                         </Link>
                     </li>
                     <li>
-                        <Link href="/rsvp" className="hover:text-blue-500">
+                        <Link href="/rsvp" className="font-sans hover:text-blue-500">
                             RSVP
                         </Link>
                     </li>
@@ -35,7 +35,7 @@ export default function Navbar() {
 
                 {/* Auth Options */}
                 <div className="hidden md:block">
-                    <button className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
+                    <button className="font-sans text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
                         Sign In
                     </button>
                 </div>
@@ -82,7 +82,7 @@ export default function Navbar() {
                         </li>
                         <li>
                             <button
-                                className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600"
+                                className="font-sans text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Sign In
