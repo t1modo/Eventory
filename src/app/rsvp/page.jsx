@@ -1,8 +1,9 @@
 export default function RsvpPage() {
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-4xl font-bold">RSVP</h1>
-            <p className="font-roboto mt-2 text-gray-600">RSVP for your favorite events here.</p>
+        <div className="h-screen bg-gradient-to-r from-blue-300 to-blue-400 relative">
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-4">
+                <h1 className="font-inter text-5xl font-bold">RSVP</h1>
+            </div>
         </div>
     );
 }
