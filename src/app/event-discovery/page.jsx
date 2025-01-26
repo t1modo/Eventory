@@ -7,10 +7,12 @@ import EventCard from "../components/EventCard";
 export default function EventDiscoveryPage() {
     const [query, setQuery] = useState({ q: '', location: '' }); //Creates a dynamic search query for the user
     const [searchInput, setSearchInput] = useState({ q: '', location: '' }); //Creates a controlled form state
+    const [hasSearched, setHasSearched] = useState(false); //This will track if the user has submitted a search
     const { events, loading, error } = useEventAPI(query);
 
     const handleSearch = (e) => {
         e.preventDefault();
+        setHasSearched(true); //This will mark that the search has started
         setQuery(searchInput); //This will update the state of the query whenever a form is submitted
     };
 
@@ -53,18 +55,16 @@ export default function EventDiscoveryPage() {
             </form>
 
             {/* The loading and Error States */}
-            {loading && <p className="text-center">Loading Events...</p>}
-            {error && <p className="text-center text-red-500">{error}</p>}
+            {hasSearched && loading && <p className="text-center">Loading Events...</p>}
+            {hasSearched && error && <p className="text-center text-red-500">{error}</p>}
 
             {/* The Event Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Array.isArray(events) && events.length > 0 ? (
+                {Array.isArray(events) && events.length > 0 &&
                     events.map((event) => (
                         <EventCard key={event.id} event={event} />
-                    ))
-                ) : (
-                    <p className="text-center">No events found for your search criteria. Try a different keyword or location.</p>
-                )}
+                    ))  
+                }
             </div>
         </div>
     );
