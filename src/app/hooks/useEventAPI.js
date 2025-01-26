@@ -15,7 +15,7 @@ export default function useEventAPI(query) {
             setError(null);
 
             try {
-                const response = await fetch(`/app/api/event?q=${query.q}&location=${query.location}`);
+                const response = await fetch(`/app/api/route?q=${query.q}&location=${query.location}`);
                 if (!response.ok) throw new Error("Failed to fetch events");
                 const data = await response.json();
                 setEvents(data);
