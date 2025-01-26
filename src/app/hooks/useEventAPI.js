@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-import dotenv from "dotenv";
-dotenv.config(); //This will load variables from .env to process.env
 
 export default function useEventAPI(query) {
     const [events, setEvents] = useState([]);
@@ -19,17 +15,10 @@ export default function useEventAPI(query) {
             setError(null);
 
             try {
-                const response = await axios.get(
-                    "https://app.ticketmaster.com/discovery/v2/events.json", //Ticketmaster Discovery API
-                    {
-                        params: {
-                            keyword: query.q, //Uses query for keyword search
-                            city: query.location, //Location can be a city
-                            apiKey: process.env.TICKETMASTER_API_KEY, //Ticketmaster API key
-                        },
-                    }
-                );
-                setEvents(response.data._embedded.events || []);
+                const response = await fetch(`/app/api/event?q=${query.q}&location=${query.location}`);
+                if (!response.ok) throw new Error("Failed to fetch events");
+                const data = await response.json();
+                setEvents(data);
             }
             catch (err) {
                 setError(err.message || 'Failed to fetch events');
