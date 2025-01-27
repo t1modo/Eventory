@@ -14,7 +14,7 @@ export default function Navbar() {
                     <Link href="/"><img src="/images/eventory_logo.png" alt="Logo" className="h-10" /></Link>
                 </div>
 
-                {/* Desktop Nav Links */}
+                {/* The Desktop Nav Links */}
                 <ul className="hidden md:flex space-x-6">
                     <li>
                         <Link href="/" className="font-sans hover:text-blue-500">
@@ -40,7 +40,7 @@ export default function Navbar() {
                     </button>
                 </div>
 
-                {/* Mobile Menu Toggle */}
+                {/* The Mobile Menu Toggle */}
                 <button
                     className="block md:hidden text-gray-600"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -62,21 +62,21 @@ export default function Navbar() {
                     </svg>
                 </button>
 
-                {/* Mobile Nav Links */}
+                {/* The Mobile Nav Links */}
                 {isMobileMenuOpen && (
                     <ul className="absolute top-14 left-0 w-full bg-gray-900 shadow-md flex flex-col items-center space-y-4 py-4 md:hidden">
                         <li>
-                            <Link href="/" className="hover:text-blue-500" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Link href="/" className="font-sans hover:text-blue-500" onClick={() => setIsMobileMenuOpen(false)}>
                                 Home
                             </Link>
                         </li>
                         <li>
-                            <Link href="/event-discovery" className="hover:text-blue-500" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Link href="/event-discovery" className="font-sans hover:text-blue-500" onClick={() => setIsMobileMenuOpen(false)}>
                                 Events
                             </Link>
                         </li>
                         <li>
-                            <Link href="/rsvp" className="hover:text-blue-500" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Link href="/rsvp" className="font-sans hover:text-blue-500" onClick={() => setIsMobileMenuOpen(false)}>
                                 RSVP
                             </Link>
                         </li>
