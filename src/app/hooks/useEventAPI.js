@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function useEventAPI(query) {
     const [events, setEvents] = useState([]);
@@ -16,14 +15,10 @@ export default function useEventAPI(query) {
             setError(null);
 
             try {
-                const response = await axios.get(
-                    `https://www.eventbriteapi.com/v3/events/search/`, //there might be an issue with this
-                    {
-                        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_EVENTBRITE_API_KEY}` },
-                        params: { q: query.q, 'location.address': query.location },
-                    }
-                );
-                setEvents(response.data.events || []);
+                const response = await fetch(`/app/api/route?q=${query.q}&location=${query.location}`);
+                if (!response.ok) throw new Error("Failed to fetch events");
+                const data = await response.json();
+                setEvents(data);
             }
             catch (err) {
                 setError(err.message || 'Failed to fetch events');
