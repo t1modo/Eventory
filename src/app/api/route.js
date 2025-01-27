@@ -1,8 +1,5 @@
 import axios from "axios"; //Import axios so we can make HTTP requests
 
-import dotenv from "dotenv";
-dotenv.config(); //This will load variables from .env to process.env
-
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
@@ -15,7 +12,7 @@ export async function GET(req) {
                 params: {
                     keyword: keyword,
                     city: location,
-                    apiKey: process.env.TICKETMASTER_API_KEY, //Ticketmaster API key
+                    apikey: process.env.TICKETMASTER_API_KEY, //Ticketmaster API key 
                 },
             }
         );
