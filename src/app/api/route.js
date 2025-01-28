@@ -12,16 +12,35 @@ export async function GET(req) {
                 params: {
                     keyword: keyword,
                     city: location,
-                    apikey: process.env.TICKETMASTER_API_KEY, //Ticketmaster API key 
+                    apikey: process.env.TICKETMASTER_API_KEY,
                 },
             }
         );
 
-        return new Response(JSON.stringify(response.data._embedded?.events || []), {
-            status: 200,
-        });
-    }
-    catch (error) {
+        // Extract and format events
+        const events = response.data._embedded?.events.map((event) => {
+            console.log("Raw PriceRanges:", event.priceRanges);
+
+            return {
+                id: event.id,
+                name: event.name,
+                date: event.dates.start.localDate,
+                time: event.dates.start.localTime,
+                image: event.images.find((img) => img.width > 1000)?.url || event.images[0]?.url, // Pick the largest available image
+                venue: event._embedded?.venues[0]?.name,
+                location: `${event._embedded?.venues[0]?.city?.name}, ${event._embedded?.venues[0]?.state?.stateCode}`,
+                priceRange: event.priceRanges
+                    ? `$${event.priceRanges[0]?.min} - $${event.priceRanges[0]?.max}`
+                    : 'N/A',
+                url: event.url,
+            };
+        }) || [];
+
+        // Debug: Log the processed events
+        console.log("Processed Events:", events);
+
+        return new Response(JSON.stringify(events), { status: 200 });
+    } catch (error) {
         console.error("Error fetching events: ", error);
         return new Response("Error fetching events", { status: 500 });
     }
