@@ -19,8 +19,6 @@ export async function GET(req) {
 
         // Extract and format events
         const events = response.data._embedded?.events.map((event) => {
-            console.log("Raw PriceRanges:", event.priceRanges);
-
             return {
                 id: event.id,
                 name: event.name,
@@ -35,9 +33,6 @@ export async function GET(req) {
                 url: event.url,
             };
         }) || [];
-
-        // Debug: Log the processed events
-        console.log("Processed Events:", events);
 
         return new Response(JSON.stringify(events), { status: 200 });
     } catch (error) {
