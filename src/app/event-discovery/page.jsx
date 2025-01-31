@@ -23,7 +23,7 @@ export default function EventDiscoveryPage() {
 
     return (
         <div className="p-6 bg-gradient-to-r from-blue-300 to-blue-400 min-h-screen">
-            <h1 className="text-5xl font-bold text-center mb-6">Discover Events</h1>
+            <h1 className="text-5xl font-bold text-center mb-6 fly-in-text">Discover Events</h1>
 
             {/* The Search Form */}
             <form
