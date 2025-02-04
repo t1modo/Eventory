@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col justify-start items-center text-white relative pt-16 md:pt-24 lg:pt-32">
+      <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col justify-start items-center text-white relative pt-16 md:pt-24 lg:pt-32">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-center">
           Discover Events Near You!
         </h1>
@@ -25,7 +25,7 @@ export default function HomePage() {
         </Link>
 
         {/* Swiping Cards Positioned Below */}
-        <div className="relative bottom-5 w-full max-w-7xl px-4">
+        <div className="w-full max-w-7xl px-4 mt-3">
           <FeaturedEventCarousel events={events} />
         </div>
       </div>
