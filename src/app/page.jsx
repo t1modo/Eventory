@@ -25,7 +25,7 @@ export default function HomePage() {
         </Link>
 
         {/* Swiping Cards Positioned Below */}
-        <div className="absolute bottom-20 w-full max-w-7xl px-4">
+        <div className="relative bottom-5 w-full max-w-7xl px-4">
           <FeaturedEventCarousel events={events} />
         </div>
       </div>
