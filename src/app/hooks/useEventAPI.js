@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 
 export default function useEventAPI(query) {
-  const [events, setEvents] = useState(() => {
-    // Initialize from localStorage if data exists. This way we can save loaded content on the page
-    const savedEvents = localStorage.getItem("events");
-    return savedEvents ? JSON.parse(savedEvents) : [];
-  });
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Check if running on the client-side
+    if (typeof window !== "undefined") {
+      // Initialize from localStorage if data exists (only on client-side)
+      const savedEvents = localStorage.getItem("events");
+      if (savedEvents) {
+        setEvents(JSON.parse(savedEvents));
+      }
+    }
+  }, []); // Runs only once when the component mounts
 
   useEffect(() => {
     if (!query.q && !query.location) {
@@ -32,12 +39,16 @@ export default function useEventAPI(query) {
         const sortedData = data.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
-          return dateA - dateB; //This is to ensure ascended order
+          return dateA - dateB; // This ensures ascending order
         });
 
-        setEvents(popularEvents);
         setEvents(sortedData);
-        localStorage.setItem("events", JSON.stringify(sortedData));
+        setEvents(popularEvents);
+        
+        // Store events in localStorage (only on the client-side)
+        if (typeof window !== "undefined") {
+          localStorage.setItem("events", JSON.stringify(sortedData));
+        }
       } catch (err) {
         setError(err.message || "Failed to fetch events");
       } finally {
