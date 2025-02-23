@@ -1,57 +1,64 @@
-import Link from "next/link";
-import { Calendar, MapPin, DollarSign, Ticket } from "lucide-react";
-
 export default function EventCard({ event, className, size = "large" }) {
-  const { name, events = [], venue, location, priceRange, image, id } = event || {}; // Ensure events is at least an empty array
-
-  const imageClass =
-    size === "small" ? "w-full h-32 object-cover rounded-t-lg" : "w-full h-48 object-cover rounded-t-lg";
-
-  return (
-    <div
-      className={`bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-shadow hover:shadow-lg border-2 border-white  ${className}`}
-    >
-      {image && (
-        <div className="relative">
-          <img src={image || "/placeholder.svg"} alt={name} className={imageClass} />
-          {events?.length > 1 && (
-            <div className="absolute top-2 right-2 bg-purple-600 text-white px-2 py-1 rounded-full text-sm">
-              {events.length} events
-            </div>
-          )}
-        </div>
-      )}
-      <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">{name}</h2>
-        <div className="space-y-2">
-          {events.length > 0 && (
-            <p className="flex items-center text-gray-600 dark:text-gray-300">
-              <Calendar className="w-4 h-4 mr-2" />
-              Next event: {new Date(events[0]?.date).toLocaleDateString()}
-            </p>
-          )}
-          <p className="flex items-center text-gray-600 dark:text-gray-300">
-            <MapPin className="w-4 h-4 mr-2" />
-            {venue || location || "Unknown Venue"}
+    const { name, date, time, url, venue, location, priceRange, image } = event;
+  
+    const formatTime = (timeString) => {
+      if (!timeString) return "";
+      const [hours, minutes] = timeString.split(":");
+      return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    };
+  
+    // Determine image classes based on size
+    const imageClass =
+      size === "small"
+        ? "w-24 h-24 object-cover rounded-md mb-4" // Small square image
+        : "w-full h-48 object-cover rounded-md mb-4"; // Default larger image
+  
+    return (
+      <div
+        className={`flex flex-col bg-slate-200 p-4 rounded-lg shadow-md hover:shadow-lg transition ${className}`}
+      >
+        {/* Event Image */}
+        {image && (
+          <img
+            src={image}
+            alt={name || "Event Image"}
+            className={imageClass}
+          />
+        )}
+  
+        {/* Event Details */}
+        <div className="flex flex-col justify-between">
+          <h2 className="text-blue-400 text-lg font-bold">
+            {name || "Event Name Not Available"}
+          </h2>
+          <p className="text-gray-600">
+            {date
+              ? `Date: ${new Date(date).toLocaleDateString()}`
+              : "Date not available"}
+            {time ? `, Time: ${formatTime(time)}` : ""}
           </p>
-          <p className="flex items-center text-gray-600 dark:text-gray-300">
-            <DollarSign className="w-4 h-4 mr-2" />
-            {priceRange || "N/A"}
+          <p className="text-gray-500">
+            {venue || location || "Location not available"}
           </p>
-          {events.length > 1 && (
-            <p className="flex items-center text-gray-600 dark:text-gray-300">
-              <Ticket className="w-4 h-4 mr-2" />
-              {events.length} upcoming events available
-            </p>
-          )}
+          <p className="text-gray-500">
+            {priceRange || "Price range not available"}
+          </p>
+          <a
+            href={url || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`text-blue-500 hover:underline mt-2 inline-block ${
+              url ? "" : "pointer-events-none text-gray-400"
+            }`}
+          >
+            {url ? "View Event" : "URL not available"}
+          </a>
         </div>
-        <Link
-          href={`/series/${id}`}
-          className="mt-4 inline-block px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-        >
-          View All Events
-        </Link>
       </div>
-    </div>
-  );
-}
+    );
+  }
+  
