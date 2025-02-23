@@ -15,7 +15,6 @@ export default function HomePage() {
           Discover Events Near You
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300">
-<<<<<<< HEAD
           Find concerts, sports, and more in your city.
 <<<<<<< HEAD
 =======
@@ -30,9 +29,6 @@ export default function HomePage() {
 >>>>>>> parent of bbe34ef (Massive reworks)
 =======
 >>>>>>> 9d083ed4d5a9cbbe388da41e5d75e2c331f4df64
-=======
-          Find concerts, sports, and more in your city
->>>>>>> parent of 72ced54 (Git reverted)
         </p>
         <Link
           href="/event-discovery"
