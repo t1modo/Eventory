@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9d083ed4d5a9cbbe388da41e5d75e2c331f4df64
 import axios from "axios";
 import { setTimeout } from 'timers/promises';
 
@@ -32,6 +35,9 @@ export async function GET(req) {
     const location = searchParams.get("location") || "";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9d083ed4d5a9cbbe388da41e5d75e2c331f4df64
     const categories = [];
     for (const category of CATEGORY_ORDER) {
       try {
@@ -88,6 +94,7 @@ export async function GET(req) {
       }), 
       { status: 500 }
     );
+<<<<<<< HEAD
 =======
     const response = await axios.get(
       "https://app.ticketmaster.com/discovery/v2/events.json",
@@ -125,5 +132,7 @@ export async function GET(req) {
     console.error("Error fetching events: ", error);
     return new Response("Error fetching events", { status: 500 });
 >>>>>>> parent of bbe34ef (Massive reworks)
+=======
+>>>>>>> 9d083ed4d5a9cbbe388da41e5d75e2c331f4df64
   }
 }

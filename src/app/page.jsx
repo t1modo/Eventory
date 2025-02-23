@@ -16,6 +16,7 @@ export default function HomePage() {
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300">
           Find concerts, sports, and more in your city.
+<<<<<<< HEAD
 =======
     <div>
       {/* Hero Section */}
@@ -26,6 +27,8 @@ export default function HomePage() {
         <p className="text-lg md:text-xl lg:text-2xl mb-6 text-center">
           Find concerts, meetups, and more in your city.
 >>>>>>> parent of bbe34ef (Massive reworks)
+=======
+>>>>>>> 9d083ed4d5a9cbbe388da41e5d75e2c331f4df64
         </p>
         <Link
           href="/event-discovery"
