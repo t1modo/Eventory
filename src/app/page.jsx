@@ -12,10 +12,10 @@ export default function HomePage() {
     <div className="space-y-12">
       <section className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
-          Discover Events Near You
+          Discover Events Near You!
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300">
-          Find concerts, sports, and more in your city
+          Find concerts, sports, and more in your city.
         </p>
         <Link
           href="/event-discovery"
