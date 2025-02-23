@@ -1,63 +1,67 @@
-import { useEffect, useState } from "react";
+"use client"
 
-export default function useEventAPI(query) {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+import { useState, useEffect } from "react"
 
-  useEffect(() => {
-    // Check if running on the client-side
-    if (typeof window !== "undefined") {
-      // Initialize from localStorage if data exists (only on client-side)
-      const savedEvents = localStorage.getItem("events");
-      if (savedEvents) {
-        setEvents(JSON.parse(savedEvents));
-      }
-    }
-  }, []); // Runs only once when the component mounts
+const useEventAPI = (query = {}) => {
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    if (!query.q && !query.location) {
-      return;
-    }
+    let isMounted = true
 
-    const fetchEvents = async () => {
-      setLoading(true);
-      setError(null);
+    const fetchData = async () => {
+      if (!isMounted) return
+
+      setLoading(true)
+      setError(null)
 
       try {
-        const response = await fetch(
-          `/api?q=${query.q}&location=${query.location}`
-        );
-        if (!response.ok) throw new Error("Failed to fetch events");
-        const data = await response.json();
+        const queryParams = new URLSearchParams({
+          q: query.q || "",
+          location: query.location || "",
+          size: query.size || "20",
+        })
 
-        const popularEvents = data
-          .sort((a, b) => b.attendees - a.attendees)
-          .slice(0, 5);
+        const response = await fetch(`/api?${queryParams}`)
 
-        const sortedData = data.sort((a, b) => {
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          return dateA - dateB; // This ensures ascending order
-        });
-
-        setEvents(sortedData);
-        setEvents(popularEvents);
-        
-        // Store events in localStorage (only on the client-side)
-        if (typeof window !== "undefined") {
-          localStorage.setItem("events", JSON.stringify(sortedData));
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
+
+        const data = await response.json()
+
+        if (!isMounted) return
+
+        if (data.error) {
+          throw new Error(data.error)
+        }
+
+        setCategories(data.categories || [])
       } catch (err) {
-        setError(err.message || "Failed to fetch events");
+        if (!isMounted) return
+        console.error("Error fetching events:", err)
+        setError(err.message || "Failed to fetch events")
+        setCategories([])
       } finally {
-        setLoading(false);
+        if (!isMounted) return
+        setLoading(false)
       }
-    };
+    }
 
-    fetchEvents();
-  }, [query]);
+    fetchData()
 
-  return { events, loading, error };
+    return () => {
+      isMounted = false
+    }
+  }, [query.q, query.location, query.size])
+
+  return {
+    categories,
+    loading,
+    error,
+    hasCategories: categories.length > 0,
+  }
 }
+
+export default useEventAPI

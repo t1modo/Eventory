@@ -1,21 +1,23 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import useEventAPI from "./hooks/useEventAPI";
-import FeaturedEventCarousel from "./components/FeaturedEventsCarousel";
+import Link from "next/link"
+import useEventAPI from "./hooks/useEventAPI"
+import CategorySection from "./components/CategorySection"
+import { AlertCircle } from "lucide-react"
 
 export default function HomePage() {
-  const { events, loading, error } = useEventAPI({ q: "", location: "" });
+  const { categories, loading, error } = useEventAPI({ size: "200" })
 
   return (
-<<<<<<< HEAD
     <div className="space-y-12">
       <section className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
-          Discover Events Near You!
+          Discover Events Near You
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300">
+<<<<<<< HEAD
           Find concerts, sports, and more in your city.
+<<<<<<< HEAD
 =======
     <div>
       {/* Hero Section */}
@@ -26,19 +28,42 @@ export default function HomePage() {
         <p className="text-lg md:text-xl lg:text-2xl mb-6 text-center">
           Find concerts, meetups, and more in your city.
 >>>>>>> parent of bbe34ef (Massive reworks)
+=======
+>>>>>>> 9d083ed4d5a9cbbe388da41e5d75e2c331f4df64
+=======
+          Find concerts, sports, and more in your city
+>>>>>>> parent of 72ced54 (Git reverted)
         </p>
         <Link
           href="/event-discovery"
-          className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition mb-8"
+          className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
         >
           Explore Events
         </Link>
+      </section>
 
-        {/* Swiping Cards Positioned Below */}
-        <div className="w-full max-w-7xl px-4 mt-3">
-          <FeaturedEventCarousel events={events} />
-        </div>
+      <div className="space-y-8">
+        {loading && (
+          <div className="flex items-center justify-center h-48">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+          </div>
+        )}
+
+        {error && (
+          <div className="flex items-center justify-center h-48 text-red-500">
+            <AlertCircle className="w-6 h-6 mr-2" />
+            <p>{error}</p>
+          </div>
+        )}
+
+        {!loading && !error && (
+          <div className="flex flex-col">
+            {categories?.map((category) => (
+              <CategorySection key={category.category} category={category.category} events={category.events} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
-  );
+  )
 }
